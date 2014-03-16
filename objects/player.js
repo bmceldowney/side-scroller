@@ -3,16 +3,21 @@ var Player;
 (function () {
     var isJumpStarted;
 
-    Player = function (imageStr, game) {
+    Player = function (game) {
         var sprite
           , isMoving
           , cursors
           , direction
           , velocity
-          , utils = Utilities;
+          , utils = Utilities
+          , spriteStr = 'dude';
+          
+        this.preload = function () {
+            game.load.spritesheet(spriteStr, 'assets/dude.png', 32, 48);
+        }
 
         this.create = function () {
-            this.sprite = sprite = game.add.sprite(32, game.world.height - 150, imageStr);
+            this.sprite = sprite = game.add.sprite(32, game.world.height - 150, spriteStr);
 
             game.physics.enable(sprite, Phaser.Physics.ARCADE);
 

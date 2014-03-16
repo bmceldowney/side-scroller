@@ -11,7 +11,9 @@ function preload() {
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+
+    player = new Player(game);
+    player.preload();
 }
 
 function create () {
@@ -25,6 +27,7 @@ function create () {
 
     game.physics.arcade.gravity.y = 500;
     game.world.setBounds(0, 0, 4000, 600);
+    game.scale.scaleFactor = {x: 2, y: 2};
 
     stars = game.add.group();
     platforms = game.add.group();
@@ -36,7 +39,6 @@ function create () {
     ledges.push(platforms.create(-150, 250, 'ground'));
     ledges.push(platforms.create(775, 225, 'ground'));
 
-    player = new Player('dude', game);
     player.create();
 
     game.physics.enable([ground].concat(ledges), phys);
