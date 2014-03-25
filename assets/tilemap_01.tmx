@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="13" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="jungle" tilewidth="16" tileheight="16">
+  <image source="mininicular.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="65" name="jungle2" tilewidth="16" tileheight="16">
+  <image source="mininicular2.png" width="128" height="128"/>
+ </tileset>
+ <layer name="background" width="40" height="13" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJyzZGBgsMSBrYDYGgt2QGLbMNAW4HIbPvfZDXL3OQxy99kPcvch48HiPttB7j7kPDEY3ecwyN2HnCcGo/sGe/4Ydd/QdB8AIhoyWQ==
+  </data>
+ </layer>
+ <layer name="mid" width="40" height="13" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdsJGhh1zAioaJAfR2nwQQmwKxOJF66Ok+NTL00NN9fGTooaf7xOhoFzkAlP4EBtoReAAs30Yw4I43c/o5BwOA3KbHAHEbLvcRW+7QAoDslmPA7z4zIJalm4tQATHuAwFdhoEJR1j6A+URWDqD0RZQ2h9JHTY/MCFhWrkP2X4Qzc5AfHgxEYnJAQCrfAQl
+  </data>
+ </layer>
+ <layer name="fore" width="40" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzNVLsOwjAMdCALKguPhW6wwVbgC2CEhcdC//9DsFVbhFAnIDUpJ51iyTecbF8MABjmP4J8zZHbvo0oKH/Q7pO50LH6QnNC1tDPHfj+di2ait8ZcpPWzgdoHkeuaU4P5FnRXpHLQD8FZGcWmpwQtKyMWHvP4Esg+aUdDiLaCeT1Rojlt4AmG2PkGt53e0llygHlIzQ3mesNXrdAfoeQZ5YlxPcqWCAPXFchYYeQbGiZlD+5YO3U6bX9RV3DOKSdWee1Xt/XSZ2ST1ofCgU=
+  </data>
+ </layer>
+</map>

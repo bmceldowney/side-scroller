@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="120" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="jungle1" tilewidth="32" tileheight="32">
+  <image source="mininicular.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="65" name="jungle2" tilewidth="32" tileheight="32">
+  <image source="mininicular2.png" width="256" height="256"/>
+ </tileset>
+ <layer name="mid" width="30" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztlbFOwzAQhk+VglgKXVpY6MZI6VLoCwRYCixQlvD+j4FPuZNM5CZOmxaG75NOSWzHv333OxEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAgP/O8q8XcAAfJ9Rah7gM8R3iYuC57xvPrnMeogqxsPbXgXXHpvNsml/WvrLrw8B6zsau2xBzOV0dP+2qey2kvY5vUuflMXPup5a+Uuo8q6bmeFcdX2xM1TFfTJsn4jxPEv2aD8+F134oj2lNNYfzRN+4oTkkmuvK5p/Ib29NTXMU4ixzvk2ibZl438ddmfbMnjW/13avumu7X8luYl+6/0qbp23dd6atvr0J8S51DdR7OX4q7B2Jxqf236S0d+PwPef6yXPWx3+6tm2kua+fPGd98LOa8ncf3VnnqBr3i5+dRctYp/lfaWrr+cj9vk0lP8dFRn/XGOdWDsvxPuiZ8TWmvpvHwL/DcfhZHB1Rt6nZpzbOD+YLGIo=
+  </data>
+ </layer>
+ <layer name="fore" width="30" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztlb1WAjEQhcdlmxUa0UZLrFAb0Bfwp1mxUWiW938QM2czmg355Syhud859yxZJtwwM0kqGo/qRLHwhS98/bG++MqjMX3H0qko5QMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIByXJzJ85y+Mz1+LuzL2iu9Ffbd6fFnQd9S/9H2vXS8fyngOzfGU6WJfv+e+Bs/+pnTk1Jf9tjQsM92gXkmjVKt1FG/Zt4b34m+ok4/b6y4UN5bpZX+vFa6JXftfL7itXbEvVK/z2aO72x4DbF9IZ6xnm7185r6XKbWPuY7jwUabAPx3FvcJ5wbqXXI11XPUG/YteCe5r3Q0bBenB9XbthzYb2T+bHeMGnocO2Cq9bse2f47Y1xzpnZxkP++KD/PPP+k/WuvDPc5J5tDQ330VfGXM4Nr/WYO+zK8n1InMf9ymeZ9FZKPSQnUzo8q8z734y1ya0Dw2dY7fEUTYyYlPMphNwVy4inrYU1PxXOlfSt3G+5knmcg3v9u09Kj441yflxjE/KOmotc02x+tn6BTlkFQM=
+  </data>
+ </layer>
+</map>
