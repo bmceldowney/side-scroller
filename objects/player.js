@@ -27,7 +27,19 @@ var Player;
             sprite.animations.add('right', [5, 6, 7, 8], 10, true);
 
             game.camera.follow(sprite);
-            cursors = game.input.keyboard.createCursorKeys();
+            //cursors = game.input.keyboard.createCursorKeys();
+          var wasd = function () {
+            var retval = {};
+            
+            retval.up = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+            retval.down = game.input.keyboard.addKey(Phaser.Keyboard.S);
+            retval.left = game.input.keyboard.addKey(Phaser.Keyboard.A);
+            retval.right = game.input.keyboard.addKey(Phaser.Keyboard.D);
+            
+            return retval;
+          }
+          
+          cursors = wasd();
         };
 
         this.update = function () {
