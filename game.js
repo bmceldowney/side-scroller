@@ -1,76 +1,80 @@
 var game
-  , platforms
   , player
   , stars
   , score = 0
-  , scoreText;
+  , scoreText
+  , map
+  , tiles
+  , tiles2
+  , layer
+  , layer2;
 
-game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
+game = new Phaser.Game(960, 640, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render});
 
 function preload() {
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
-    game.load.image('star', 'assets/star.png');
+    game.load.tilemap('map', 'assets/jungle.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('mininicular', 'assets/mininicular.png');
+    game.load.image('mininicular2', 'assets/mininicular2.png');
+    game.load.image('mangrove_rear', 'assets/mangrove_rear.png');
+    game.load.image('mangrove_mid', 'assets/mangrove_mid.png');
+    game.load.image('mangrove_front', 'assets/mangrove_front.png');
 
     player = new Player(game);
     player.preload();
 }
 
 function create () {
-    var ground
-      , ledges = []
-      , phys = Phaser.Physics.ARCADE
-      , sky;
+    var phys = Phaser.Physics.P2JS
+      , sky
+      , collisionTiles = [ 1, 3, 4, 9, 10, 11, 12, 17, 18, 19, 20, 25, 26, 33, 34, 41, 42, 65, 66, 89, 90 ];
 
-    sky = game.add.sprite(0, 0, 'sky');
-    sky.fixedToCamera = true;
+    game.stage.backgroundColor = '#7fa299';
 
-    game.physics.arcade.gravity.y = 500;
-    game.world.setBounds(0, 0, 4000, 600);
-    game.scale.scaleFactor = {x: 2, y: 2};
+    game.add.tileSprite(0, 2975, 960, 908, 'mangrove_rear');
+    game.add.tileSprite(0, 2975, 960, 908, 'mangrove_mid');
+    game.add.tileSprite(0, 2975, 960, 908, 'mangrove_front');
 
-    stars = game.add.group();
-    platforms = game.add.group();
+    game.physics.startSystem(phys);
 
-    ground = platforms.create(0, game.world.height - 64, 'ground');
-    ground.scale.setTo(20, 2);
+    map = game.add.tilemap('map');
+    map.addTilesetImage('jungle1', 'mininicular');
+    map.addTilesetImage('jungle2','mininicular2');
 
-    ledges.push(platforms.create(400, 400, 'ground'));
-    ledges.push(platforms.create(-150, 250, 'ground'));
-    ledges.push(platforms.create(775, 225, 'ground'));
+    layer = map.createLayer('mid');
+    layer2 = map.createLayer('fore');
 
+    map.setCollision(collisionTiles, true, layer2);
+
+    //  Convert the tilemap layer into bodies. Only tiles that collide (see above) are created.
+    //  This call returns an array of body objects which you can perform addition actions on if
+    //  required. There is also a parameter to control optimising the map build.
+    game.physics.p2.convertTilemap(map, layer2);
+
+    layer2.resizeWorld();
+
+    game.physics.p2.gravity.y = 500;
+
+    // layer2.debug = true;
+    
     player.create();
 
-    game.physics.enable([ground].concat(ledges), phys);
-
-    platforms.children.forEach(function (platform) {
-        platform.body.immovable = true;
-        platform.body.allowGravity = false;
-    });
-
-    for (var i = 0; i < 12; i++) {
-        var star = stars.create(i * 70, 0, 'star');
-
-        game.physics.enable(star, phys);
-        star.body.bounce.y = 0.6 + Math.random() * 0.2;
-    }
-
-    scoreText = game.add.text(0, 0, 'score: 0', {font: '32px arial', fill: '#000'});
+    scoreText = game.add.text(0, 0, 'score: 0', {font: '12px arial', fill: '#000'});
     scoreText.fixedToCamera = true;
     scoreText.cameraOffset.setTo(16, 16);
+
+    game.stage.smoothed = false;
 }
 
 function update () {
-    game.physics.arcade.collide(player.sprite, platforms);
-    game.physics.arcade.collide(stars, platforms);
-    game.physics.arcade.overlap(player.sprite, stars, starGet, null, this);
+    // game.physics.arcade.collide(player.sprite, layer2);
 
     player.update();
 }
 
-function starGet (player, star) {
-    star.kill();
-
-    score += 10;
-    scoreText.setText('score: ' + score);
+function render () {
+    // game.debug.body(player.sprite);
+    // game.debug.bodyInfo(player.sprite, 0, 200);
+    // game.debug.spriteBounds(player.sprite);
+    // game.debug.quadTree(game.physics.arcade.quadTree);
+    // game.debug.cameraInfo(game.camera, 0, 20);
 }

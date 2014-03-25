@@ -13,21 +13,22 @@ var Player;
           , spriteStr = 'dude';
           
         this.preload = function () {
-            game.load.spritesheet(spriteStr, 'assets/dude.png', 32, 48);
-        }
+            game.load.spritesheet(spriteStr, 'assets/charzera_0.png', 25, 45);
+        };
 
         this.create = function () {
-            this.sprite = sprite = game.add.sprite(32, game.world.height - 150, spriteStr);
+            this.sprite = sprite = game.add.sprite(500, 3700, spriteStr);
 
-            game.physics.enable(sprite, Phaser.Physics.ARCADE);
-
+            game.physics.p2.enable(sprite, true);
             sprite.body.collideWorldBounds = true;
+            sprite.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
+            game.camera.follow(sprite); // , Phaser.Camera.FOLLOW_PLATFORMER
 
-            sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-            sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-
-            game.camera.follow(sprite);
-            cursors = game.input.keyboard.createCursorKeys();
+            cursors = {
+                up: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+                left: game.input.keyboard.addKey(Phaser.Keyboard.A),
+                right: game.input.keyboard.addKey(Phaser.Keyboard.D)
+            };
         };
 
         this.update = function () {
@@ -38,43 +39,49 @@ var Player;
             velocity = sprite.body.velocity.x;
             sprite.body.velocity.x = 0;
 
-            if (cursors.left.isDown) {
-                sprite.body.velocity.x = -150;
-                sprite.animations.play('left');
+            if (cursors.left.isDown) { // && !sprite.body.blocked.left
+                // sprite.anchor.setTo(1, 0);
+                sprite.scale.x = -1;
+
+                sprite.body.velocity.x = -100;
+                sprite.animations.play('walk');
                 isMoving = true;
-            } else if (cursors.right.isDown) {
-                sprite.body.velocity.x = 150;
-                sprite.animations.play('right');
+            } else if (cursors.right.isDown) { // && !sprite.body.blocked.right
+                // sprite.anchor.setTo(0, 0);
+                sprite.scale.x = 1;
+
+                sprite.body.velocity.x = 100;
+                sprite.animations.play('walk');
                 isMoving = true;
             } else {
-                if (!sprite.body.touching.down) {
-                    sprite.body.velocity.x = utils.reduceValue(velocity, 0.99, 1);
-                } else {
-                    sprite.animations.stop();
-                    sprite.frame = direction;
-                    isMoving = false;
-                }
+                // if (!sprite.body.blocked.down) {
+                //     sprite.body.velocity.x = utils.reduceValue(velocity, 0.97, 5);
+                // } else {
+                //     sprite.animations.stop();
+                //     sprite.frame = direction;
+                //     isMoving = false;
+                // }
             }
 
-            if (cursors.up.isDown && !isJumpStarted) {
-                if (sprite.body.touching.down) {
-                    startJump(sprite);
-                }
-            }
+            // if (cursors.up.isDown && !isJumpStarted) {
+            //     if (sprite.body.blocked.down) {
+            //         startJump(sprite);
+            //     }
+            // }
 
-            if (!cursors.up.isDown) {
-                if (isJumpStarted) sprite.body.velocity.y = utils.reduceValue(sprite.body.velocity.y, 0.3333, 1);
-                isJumpStarted = false;
-            }
+            // if (!cursors.up.isDown) {
+            //     if (isJumpStarted) sprite.body.velocity.y = utils.reduceValue(sprite.body.velocity.y, 0.3333, 1);
+            //     isJumpStarted = false;
+            // }
 
-            if (!sprite.body.touching.down) {
-                sprite.frame = direction + 1;
-            }
+            // if (!sprite.body.blocked.down) {
+            //     sprite.frame = direction + 1;
+            // }
         };
     };
 
     function startJump (player) {
-        player.body.velocity.y = -425;
+        player.body.velocity.y = -300;
         isJumpStarted = true;
     }
 })();
