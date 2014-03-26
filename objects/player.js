@@ -19,7 +19,8 @@ var Player;
         this.create = function () {
             this.sprite = sprite = game.add.sprite(500, 3700, spriteStr);
 
-            game.physics.p2.enable(sprite, true);
+            game.physics.p2.enable(sprite);
+            sprite.body.angularDamping = 1;
             sprite.body.collideWorldBounds = true;
             sprite.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
             game.camera.follow(sprite); // , Phaser.Camera.FOLLOW_PLATFORMER
@@ -36,6 +37,7 @@ var Player;
                 direction = sprite.body.velocity.x > 0 ? 5 : 0;
             }
 
+            sprite.body.rotation = 0; // always stay upright
             velocity = sprite.body.velocity.x;
             sprite.body.velocity.x = 0;
 
@@ -57,7 +59,7 @@ var Player;
                 // if (!sprite.body.blocked.down) {
                 //     sprite.body.velocity.x = utils.reduceValue(velocity, 0.97, 5);
                 // } else {
-                //     sprite.animations.stop();
+                    sprite.animations.stop();
                 //     sprite.frame = direction;
                 //     isMoving = false;
                 // }

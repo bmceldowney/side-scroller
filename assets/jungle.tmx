@@ -16,4 +16,12 @@
    eJztlb1WAjEQhcdlmxUa0UZLrFAb0Bfwp1mxUWiW938QM2czmg355Syhud859yxZJtwwM0kqGo/qRLHwhS98/bG++MqjMX3H0qko5QMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIByXJzJ85y+Mz1+LuzL2iu9Ffbd6fFnQd9S/9H2vXS8fyngOzfGU6WJfv+e+Bs/+pnTk1Jf9tjQsM92gXkmjVKt1FG/Zt4b34m+ok4/b6y4UN5bpZX+vFa6JXftfL7itXbEvVK/z2aO72x4DbF9IZ6xnm7185r6XKbWPuY7jwUabAPx3FvcJ5wbqXXI11XPUG/YteCe5r3Q0bBenB9XbthzYb2T+bHeMGnocO2Cq9bse2f47Y1xzpnZxkP++KD/PPP+k/WuvDPc5J5tDQ330VfGXM4Nr/WYO+zK8n1InMf9ymeZ9FZKPSQnUzo8q8z734y1ya0Dw2dY7fEUTYyYlPMphNwVy4inrYU1PxXOlfSt3G+5knmcg3v9u09Kj441yflxjE/KOmotc02x+tn6BTlkFQM=
   </data>
  </layer>
+ <objectgroup name="Object Layer 1" width="30" height="120">
+  <object name="ground" x="897" y="3595">
+   <polyline points="0,0 0,52 -34,87 -96,87 -96,150 -161,151 -167,172 -184,183 -226,182 -255,214 -542,215 -545,204 -545,183 -642,183 -641,149 -667,122 -768,120 -804,83 -801,53 -821,43 -831,23 -830,238 22,235 24,-19 2,-2"/>
+  </object>
+  <object x="580" y="3459">
+   <polyline points="0,0"/>
+  </object>
+ </objectgroup>
 </map>

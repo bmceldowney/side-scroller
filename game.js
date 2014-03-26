@@ -42,13 +42,15 @@ function create () {
 
     layer = map.createLayer('mid');
     layer2 = map.createLayer('fore');
+    // layer3 = map.createLayer("Object Layer 1");
+    game.physics.p2.convertCollisionObjects(map, 'Object Layer 1');
 
-    map.setCollision(collisionTiles, true, layer2);
+    // map.setCollision(collisionTiles, true, layer2);
 
     //  Convert the tilemap layer into bodies. Only tiles that collide (see above) are created.
     //  This call returns an array of body objects which you can perform addition actions on if
     //  required. There is also a parameter to control optimising the map build.
-    game.physics.p2.convertTilemap(map, layer2);
+    // game.physics.p2.convertTilemap(map, layer2);
 
     layer2.resizeWorld();
 

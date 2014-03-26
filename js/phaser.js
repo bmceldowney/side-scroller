@@ -68220,7 +68220,7 @@ Phaser.Physics.P2.prototype = {
 
         if (typeof addToWorld === 'undefined') { addToWorld = true; }
 
-        layer = map.getLayer(layer);
+        // layer = map.getLayer(layer);
 
         var output = [];
 
