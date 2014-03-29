@@ -6,9 +6,12 @@ var game
   , tiles
   , tiles2
   , layer
-  , layer2;
+  , layer2
+  , backRear
+  , backMid
+  , backFront;
 
-game = new Phaser.Game(960, 640, Phaser.WEBGL, 'game', {preload: preload, create: create, update: update, render: render}); // Phaser.AUTO Phaser.CANVAS
+game = new Phaser.Game(600, 400, Phaser.WEBGL, 'game', {preload: preload, create: create, update: update, render: render}); // Phaser.AUTO Phaser.CANVAS
 
 function preload() {
     game.load.tilemap('map', 'assets/jungle.json', null, Phaser.Tilemap.TILED_JSON);
@@ -29,9 +32,9 @@ function create () {
 
     game.stage.backgroundColor = '#7fa299';
 
-    game.add.tileSprite(0, 2975, 960, 908, 'mangrove_rear');
-    game.add.tileSprite(0, 2975, 960, 908, 'mangrove_mid');
-    game.add.tileSprite(0, 2975, 960, 908, 'mangrove_front');
+    backRear = game.add.tileSprite(0, 2975, 960, 908, 'mangrove_rear');
+    backMid = game.add.tileSprite(0, 2975, 960, 908, 'mangrove_mid');
+    backFront = game.add.tileSprite(0, 2975, 960, 908, 'mangrove_front');
 
     game.physics.startSystem(phys);
     game.physics.p2.gravity.y = 800;
@@ -57,6 +60,11 @@ function create () {
 
 function update () {
     player.update();
+
+    // sweet sweet paralaxin'
+    backRear.x = game.camera.x * 0.90;
+    backMid.x = game.camera.x * 0.5;
+    backFront.x = game.camera.x * 0.20;
 }
 
 function render () {
@@ -65,5 +73,5 @@ function render () {
     // game.debug.bodyInfo(player.sprite, 0, 200);
     // game.debug.spriteBounds(player.sprite);
     // game.debug.quadTree(game.physics.arcade.quadTree);
-    // game.debug.cameraInfo(game.camera, 0, 20);
+    game.debug.cameraInfo(game.camera, 0, 40);
 }
