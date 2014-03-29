@@ -10,7 +10,9 @@ var Player;
           , direction
           , velocity
           , utils = Utilities
-          , spriteStr = 'dude';
+          , spriteStr = 'dude'
+          , isGrounded
+          , that = this;
           
         this.preload = function () {
             game.load.spritesheet(spriteStr, 'assets/charzera_0.png', 25, 45);
@@ -30,6 +32,9 @@ var Player;
                 left: game.input.keyboard.addKey(Phaser.Keyboard.A),
                 right: game.input.keyboard.addKey(Phaser.Keyboard.D)
             };
+
+            this.sprite.body.onBeginContact.add(playerCollide, this);
+            this.sprite.body.onEndContact.add(playerCollideEnd, this);
         };
 
         this.update = function () {
@@ -56,30 +61,46 @@ var Player;
                 sprite.animations.play('walk');
                 isMoving = true;
             } else {
-                // if (!sprite.body.blocked.down) {
-                //     sprite.body.velocity.x = utils.reduceValue(velocity, 0.97, 5);
-                // } else {
+                if (!isGrounded) {
+                    sprite.body.velocity.x = utils.reduceValue(velocity, 0.97, 5);
+                } else {
                     sprite.animations.stop();
-                //     sprite.frame = direction;
-                //     isMoving = false;
-                // }
+                    sprite.frame = direction;
+                    isMoving = false;
+                }
             }
 
-            // if (cursors.up.isDown && !isJumpStarted) {
-            //     if (sprite.body.blocked.down) {
-            //         startJump(sprite);
-            //     }
-            // }
+            if (cursors.up.isDown && !isJumpStarted) {
+                if (isGrounded) {
+                    startJump(sprite);
+                }
+            }
 
-            // if (!cursors.up.isDown) {
-            //     if (isJumpStarted) sprite.body.velocity.y = utils.reduceValue(sprite.body.velocity.y, 0.3333, 1);
-            //     isJumpStarted = false;
-            // }
+            if (!cursors.up.isDown) {
+                if (isJumpStarted) sprite.body.velocity.y = utils.reduceValue(sprite.body.velocity.y, 0.3333, 1);
+                isJumpStarted = false;
+            }
 
-            // if (!sprite.body.blocked.down) {
-            //     sprite.frame = direction + 1;
-            // }
+            if (!isGrounded) {
+                sprite.frame = direction + 1;
+            }
         };
+
+        //  body is the Body it collides with
+        //  shapeA is the shape in the calling Body involved in the collision
+        //  shapeB is the shape in the Body it hit
+        //  equation is an array with the contact equation data in it
+        function playerCollide (body, shapeA, shapeB, equation) {
+            if(!body.sprite) { // need to figure out how to determine if body is the ground
+                isGrounded = true;
+            }
+        }
+
+        function playerCollideEnd (body, shapeA, shapeB, equation) {
+            if(!body.sprite) { // need to figure out how to determine if body is the ground
+                isGrounded = false;
+            }
+        }
     };
 
     function startJump (player) {
