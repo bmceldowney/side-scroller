@@ -28,7 +28,8 @@ function preload() {
 function create () {
     var phys = Phaser.Physics.P2JS
       , groundBodies
-      , groundMaterial;
+      , groundMaterial
+      , playerGroundMaterial;
 
     game.stage.backgroundColor = '#7fa299';
 
@@ -56,6 +57,10 @@ function create () {
     layer2.resizeWorld();
 
     game.stage.smoothed = false;
+
+    // COMING SOON: ContactMaterials!
+    // playerGroundMaterial = new Phaser.Physics.P2.ContactMaterial(player.sprite.body.material, groundMaterial);
+    // playerGroundMaterial.friction = 1;
 }
 
 function update () {

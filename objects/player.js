@@ -19,9 +19,11 @@ var Player;
         };
 
         this.create = function () {
+            var playerMaterial = new Phaser.Physics.P2.Material('player');
             this.sprite = sprite = game.add.sprite(500, 3700, spriteStr);
 
             game.physics.p2.enable(sprite);
+            sprite.body.setMaterial(playerMaterial);
             sprite.body.angularDamping = 1;
             sprite.body.collideWorldBounds = true;
             sprite.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
