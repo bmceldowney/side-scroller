@@ -9,7 +9,7 @@ var game
   , layer
   , layer2;
 
-game = new Phaser.Game(960, 640, Phaser.AUTO, 'game', {preload: preload, create: create, update: update, render: render});
+game = new Phaser.Game(960, 640, Phaser.WEBGL, 'game', {preload: preload, create: create, update: update, render: render}); // Phaser.AUTO Phaser.CANVAS
 
 function preload() {
     game.load.tilemap('map', 'assets/jungle.json', null, Phaser.Tilemap.TILED_JSON);
@@ -25,8 +25,8 @@ function preload() {
 
 function create () {
     var phys = Phaser.Physics.P2JS
-      , sky
-      , collisionTiles = [ 1, 3, 4, 9, 10, 11, 12, 17, 18, 19, 20, 25, 26, 33, 34, 41, 42, 65, 66, 89, 90 ];
+      , groundBodies
+      , groundMaterial;
 
     game.stage.backgroundColor = '#7fa299';
 
@@ -35,30 +35,23 @@ function create () {
     game.add.tileSprite(0, 2975, 960, 908, 'mangrove_front');
 
     game.physics.startSystem(phys);
+    game.physics.p2.gravity.y = 800;
 
     map = game.add.tilemap('map');
     map.addTilesetImage('jungle1', 'mininicular');
     map.addTilesetImage('jungle2','mininicular2');
+    groundBodies = game.physics.p2.convertCollisionObjects(map, 'ground');
+    groundMaterial = new Phaser.Physics.P2.Material('ground');
+    groundBodies.forEach(function (item) {
+        item.setMaterial(groundMaterial);
+    });
 
     layer = map.createLayer('mid');
     layer2 = map.createLayer('fore');
-    // layer3 = map.createLayer("Object Layer 1");
-    game.physics.p2.convertCollisionObjects(map, 'Object Layer 1');
-
-    // map.setCollision(collisionTiles, true, layer2);
-
-    //  Convert the tilemap layer into bodies. Only tiles that collide (see above) are created.
-    //  This call returns an array of body objects which you can perform addition actions on if
-    //  required. There is also a parameter to control optimising the map build.
-    // game.physics.p2.convertTilemap(map, layer2);
+    player.create();
+    layer3 = map.createLayer('foliage');
 
     layer2.resizeWorld();
-
-    game.physics.p2.gravity.y = 500;
-
-    // layer2.debug = true;
-    
-    player.create();
 
     scoreText = game.add.text(0, 0, 'score: 0', {font: '12px arial', fill: '#000'});
     scoreText.fixedToCamera = true;
@@ -68,12 +61,11 @@ function create () {
 }
 
 function update () {
-    // game.physics.arcade.collide(player.sprite, layer2);
-
     player.update();
 }
 
 function render () {
+  player.render();
     // game.debug.body(player.sprite);
     // game.debug.bodyInfo(player.sprite, 0, 200);
     // game.debug.spriteBounds(player.sprite);

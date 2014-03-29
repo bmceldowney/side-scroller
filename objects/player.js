@@ -11,7 +11,7 @@ var Player;
           , velocity
           , utils = Utilities
           , spriteStr = 'dude'
-          , isGrounded
+          , isGrounded = 0
           , that = this;
           
         this.preload = function () {
@@ -25,7 +25,7 @@ var Player;
             sprite.body.angularDamping = 1;
             sprite.body.collideWorldBounds = true;
             sprite.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
-            game.camera.follow(sprite); // , Phaser.Camera.FOLLOW_PLATFORMER
+            game.camera.follow(sprite);
 
             cursors = {
                 up: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
@@ -47,14 +47,12 @@ var Player;
             sprite.body.velocity.x = 0;
 
             if (cursors.left.isDown) { // && !sprite.body.blocked.left
-                // sprite.anchor.setTo(1, 0);
                 sprite.scale.x = -1;
 
                 sprite.body.velocity.x = -100;
                 sprite.animations.play('walk');
                 isMoving = true;
             } else if (cursors.right.isDown) { // && !sprite.body.blocked.right
-                // sprite.anchor.setTo(0, 0);
                 sprite.scale.x = 1;
 
                 sprite.body.velocity.x = 100;
@@ -86,25 +84,26 @@ var Player;
             }
         };
 
+        this.render = function () {
+            game.debug.text('isGrounded: ' + isGrounded, 20, 20);
+
+        };
+
         //  body is the Body it collides with
         //  shapeA is the shape in the calling Body involved in the collision
         //  shapeB is the shape in the Body it hit
         //  equation is an array with the contact equation data in it
         function playerCollide (body, shapeA, shapeB, equation) {
-            if(!body.sprite) { // need to figure out how to determine if body is the ground
-                isGrounded = true;
-            }
+            if(shapeB && shapeB.material && shapeB.material.name === 'ground') isGrounded++; // like a reference counter, otherwise isGrounded could get set to false while the player is still on the ground
         }
 
         function playerCollideEnd (body, shapeA, shapeB, equation) {
-            if(!body.sprite) { // need to figure out how to determine if body is the ground
-                isGrounded = false;
-            }
+            if(shapeB && shapeB.material && shapeB.material.name === 'ground') isGrounded--;
         }
     };
 
     function startJump (player) {
-        player.body.velocity.y = -300;
+        player.body.velocity.y = -500;
         isJumpStarted = true;
     }
 })();
