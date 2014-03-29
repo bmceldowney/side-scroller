@@ -2,7 +2,6 @@ var game
   , player
   , stars
   , score = 0
-  , scoreText
   , map
   , tiles
   , tiles2
@@ -52,10 +51,6 @@ function create () {
     layer3 = map.createLayer('foliage');
 
     layer2.resizeWorld();
-
-    scoreText = game.add.text(0, 0, 'score: 0', {font: '12px arial', fill: '#000'});
-    scoreText.fixedToCamera = true;
-    scoreText.cameraOffset.setTo(16, 16);
 
     game.stage.smoothed = false;
 }
